@@ -1,28 +1,34 @@
 #include<iostream>
 #include<string>
 using namespace std;
-bool isVariable(string s)
-{
-    bool a=true;
-    if((int(s[0])>=65&&int(s[0])<=90)||(int(s[0])>=97&&int(s[0])<=122)||s[0]=='_'){
-        a=true;
-    }else{
-        a=false;
-        cout<<"!!Special Character at the begining!!";
-        return a;
+
+bool isVariable(string s) {
+    if(s.empty()) {
+        cout << "Invalid\n!!Empty string!!" << endl;
+        return false;
     }
-    for(int i=0; i<s.size(); i++){
-        if((int(s[i])>=32&&int(s[i])<=47)||(int(s[i])>=58&&int(s[i])<=64)){
-            a= false;
-            cout<<"!!Special Character within the variable name!!";
-            return a;
-          }
+    
+    if(!((s[0] >= 'A' && s[0] <= 'Z') || (s[0] >= 'a' && s[0] <= 'z') || s[0] == '_')) {
+        cout << "Invalid\n!!Special Character at the beginning!!" << endl;
+        return false;
     }
-    return a;
+    
+    for(int i = 0; i < s.size(); i++) {
+        if(!((s[i] >= 'A' && s[i] <= 'Z') || (s[i] >= 'a' && s[i] <= 'z') || (s[i] >= '0' && s[i] <= '9') || s[i] == '_')) {
+            cout << "Invalid\n!!Special Character within the variable name!!" << endl;
+            return false;
+        }
+    }
+    
+    return true;
 }
-int main(){
+
+int main() {
     string str;
-    char a='a';
-    cin>>str;
-    if(isVariable(str)) cout<<"Valid  variable";
+    cout << "Enter a variable name: ";
+    getline(cin, str);
+    
+    if(isVariable(str))
+        cout << "Valid variable" << endl;
+    return 0;
 }
